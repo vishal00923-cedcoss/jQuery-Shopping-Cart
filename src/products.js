@@ -11,9 +11,14 @@ $(document).ready(function () {
 });
 
 function displayProducts(products) {
-	var product = "";
-
 	for (var i = 0; i < products.length; ++i) {
-		qq = "<div id='product-' " + products[i].id + ">";
+		var product = `<div id="product-" + ${products[i].id} class="product">
+		<img src="images/${products[i].image}" />
+		<h3 class="title"><a href="#">Product ${products[i].id}</a></h3>
+		<span>Price: $${products[i].price.toFixed(2)}</span>
+		<a class="add-to-cart" href="#">Add To Cart</a>
+		</div>`;
+
+		$("#products").append(product);
 	}
 }

@@ -1,52 +1,61 @@
-var products = [
-	{ id: 101, name: "Basket Ball", image: "basketball.png", price: 150 },
-	{ id: 102, name: "Football", image: "football.png", price: 120 },
-	{ id: 103, name: "Soccer", image: "soccer.png", price: 110 },
-	{ id: 104, name: "Table Tennis", image: "table-tennis.png", price: 130 },
-	{ id: 105, name: "Tennis", image: "tennis.png", price: 100 },
+const products = [
+	{ id: 101, name: "Basket Ball", image: "basketball.png", price: 150, quantity: 0 },
+	{ id: 102, name: "Football", image: "football.png", price: 120, quantity: 0 },
+	{ id: 103, name: "Soccer", image: "soccer.png", price: 110, quantity: 0 },
+	{ id: 104, name: "Table Tennis", image: "table-tennis.png", price: 130, quantity: 0 },
+	{ id: 105, name: "Tennis", image: "tennis.png", price: 100, quantity: 0 },
 ];
 
-var cart = [];
-
 $(document).ready(function () {
-	displayProducts(products);
-	addToCart(products);
+	displayAllProducts();
+
+	$(".add-to-cart").on("click", function () {
+		let pid = $(this).data("id");
+
+		// console.log(pid);
+		cartProducts(pid);
+	});
 });
 
-function displayProducts(products) {
-	for (var i = 0; i < products.length; ++i) {
-		var product = `<div id="product-" + ${products[i].id} class="product">
-		<img src="images/${products[i].image}" />
-		<h3 class="title"><a href="#">Product ${products[i].id}</a></h3>
-		<span>Price: $${products[i].price.toFixed(2)}</span>
-		<a class="add-to-cart" href="#" data-id=${products[i].id}>Add To Cart</a>
-		</div>`;
+function displayAllProducts() {
+	let allProducts = ``;
 
-		$("#products").append(product);
+	for (item of products) {
+		allProducts += `<div id="product-${item.id}" class="product">
+                    <img src="images/${item.image}" />
+                    <h3 class="title"><a href="#">Product ${item.id}</a></h3>
+                    <span>Price: $${item.price.toFixed(2)}</span>
+                    <a class="add-to-cart" href="#" data-id="${item.id}">Add To Cart</a>
+                </div>`;
 	}
+
+	$("#products").append(allProducts);
 }
 
-function addToCart(products) {
-	$(".add-to-cart").click(function () {
-		var pId = $(this).data("id");
+function cartProducts(pid) {
+	let cartTable = ``;
 
-		for (var i = 0; i < products.length; ++i) {
-			if (pId == products[i].id) {
-				cart.push(products[i]);
-				displayCartProducts(products[i]);
+	for (item of products) {
+		if (item.id === pid) {
+			if (item.quantity == "0") {
+				item.quantity++;
+
+				cartTable += `<tr>
+                   <td>${item.id}</td>
+                   <td>${item.name}</td>
+                   <td>$${item.price.toFixed(2)}</td>
+                   <td><input type="text" value="${item.quantity}" id="${item.id}"></td>
+                   <td><a href="#" id="remove" data-id="${item.id}">X</a></td>
+                </tr>`;
+
+				break;
+			} else {
+				let $input1 = $(`#${item.id}`);
+				$input1 = $input1.val(parseInt($input1.val()) + 1);
+				item.quantity++;
 			}
 		}
-	});
+	}
+
+	$("#cart-table").append(cartTable);
 }
-
-function displayCartProducts(product) {
-	var cartProduct = `<div id="product-" + ${product.id} class="product">
-		<img src="images/${product.image}" />
-		<h3 class="title"><a href="#">Product ${product.id}</a></h3>
-		<span>Price: $${product.price.toFixed(2)}</span>
-		</div>`;
-
-	$("#cart").append(cartProduct);
-}
-
-console.log(cart);

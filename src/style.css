@@ -118,7 +118,6 @@ body {
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 }
-
 #products .product .add-to-cart:hover,
 #products .product .add-to-cart:focus,
 #contact-form .submit input[type="submit"]:hover,
@@ -147,7 +146,20 @@ body {
 	border: 1px solid #cccccc;
 }
 
-#cart {
-	display: flex;
-	flex-wrap: wrap;
+#cart-title {
+	text-align: center;
+	margin-bottom: 16px;
+}
+
+#cart-table th {
+	padding: 4px 24px;
+}
+
+#cart-table tr {
+	text-align: center;
+}
+
+#total-price {
+	text-align: center;
+	margin: 12px 0;
 }

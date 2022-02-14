@@ -159,7 +159,8 @@ body {
 	text-align: center;
 }
 
-#total-price {
-	text-align: center;
-	margin: 12px 0;
+#btn {
+	display: block;
+	padding: 8px;
+	cursor: pointer;
 }

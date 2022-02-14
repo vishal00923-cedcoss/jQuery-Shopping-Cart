@@ -14,6 +14,12 @@ $(document).ready(function () {
 
 		// console.log(pid);
 		cartProducts(pid);
+
+		$("#cart-table").css("display", "block");
+	});
+
+	$("#btn").on("click", function () {
+		$("#cart-table").css("display", "none");
 	});
 });
 
@@ -45,7 +51,6 @@ function cartProducts(pid) {
                    <td>${item.name}</td>
                    <td>$${item.price.toFixed(2)}</td>
                    <td><input type="text" value="${item.quantity}" id="${item.id}"></td>
-                   <td><a href="#" id="remove" data-id="${item.id}">X</a></td>
                 </tr>`;
 
 				break;
